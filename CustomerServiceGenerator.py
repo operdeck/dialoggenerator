@@ -41,13 +41,15 @@ startquestions = [{ 'questions' : c1, 'phrases' : f1},
 close_no = ['no', 'No thank you']
 close_yes = ['Yes', 'Yes please.', 'I do have another question.']
 
-ndialogs = 1000
+ndialogs = 10000
+ncustomers = ndialogs/2
 if __name__ == '__main__':
     csvfile = csv.writer(open('dialogs.csv', 'wb'), delimiter=';',
                          quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    csvfile.writerow(['dialog','sentence','opening','previous','current','phrase'])
+    csvfile.writerow(['dialog','CustomerID','sentence','opening','previous','current','phrase'])
     for n in range(0,ndialogs):
         print("\nDialog:")
+        customerID = 'CE-' + str(np.random.randint(1, ncustomers))
         dialoglength = 1
         while (np.random.random() > 0.8 and dialoglength < len(startquestions)):
             dialoglength = dialoglength+1
@@ -69,5 +71,5 @@ if __name__ == '__main__':
                 print('Cust: ' + np.random.choice(close_yes))
             else:
                 print('Cust: ' + np.random.choice(close_no))
-            csvfile.writerow([n+1, m, dialogsnapshot['opening'], dialogsnapshot['previous'], dialogsnapshot['current'], dialogsnapshot['phrase']])
+            csvfile.writerow([n+1, customerID, m, dialogsnapshot['opening'], dialogsnapshot['previous'], dialogsnapshot['current'], dialogsnapshot['phrase']])
 
